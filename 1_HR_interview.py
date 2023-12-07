@@ -58,8 +58,7 @@ if "tech_messages" not in st.session_state:
 # view_messages = st.expander("View the message contents in session state")
 
 # Get an OpenAI API Key before continuing
-os.environ["OPENAI_API"] = st.secrets['openai']["OPENAI_API"]
-openai.api_key = os.environ["OPENAI_API"]
+openai.api_key = st.secrets["OPEN_AI_KEY"]
 openai_api_key = openai.api_key
 # if "openai_api_key" in st.secrets:
 #     openai_api_key = st.secrets.openai_api_key
