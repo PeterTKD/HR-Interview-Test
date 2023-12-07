@@ -1,0 +1,7 @@
+langchain==0.0.333
+langchain==0.0.333
+langchain-cli==0.0.16
+langchainhub==0.1.13
+langcodes==3.3.0
+langserve==0.0.25
+langsmith==0.0.63
