@@ -5,3 +5,5 @@ langchainhub==0.1.13
 langcodes==3.3.0
 langserve==0.0.25
 langsmith==0.0.63
+streamlit==1.28.1
+streamlit-js-eval==0.1.5
