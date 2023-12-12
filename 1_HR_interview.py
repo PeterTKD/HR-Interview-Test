@@ -65,7 +65,13 @@ def generate_report():
 
 
 """
+Welcome to the HR Interview Simulator, for scenario - Junior Data Scientist at Amazon. This simulator is a part of our ongoing efforts to provide a realistic interview experience, helping you prepare for your actual interview.
+
+✔️ You are expected to respond to each question as if you are in a real interview. Be concise yet thorough in your answers.
+
 ✔️ Experiment with the tool and explore its current capabilities.
+
+✔️ Estimated Interview Duration: 30-45 minutes
 
 ✔️ Provide us with feedback about your experience, suggestions for improvements, and any issues you encounter.
 
