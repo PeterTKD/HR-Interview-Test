@@ -106,12 +106,9 @@ llm_chain = LLMChain(llm=OpenAI(openai_api_key=openai_api_key, model_name="gpt-4
 
 max_user_inputs = 6
 
-
 if "num_user_inputs" not in st.session_state:
     st.session_state.num_user_inputs = len(st.session_state['tech_messages']) // 2
 
-if "final_ai_message_sent" not in st.session_state:
-    st.session_state.final_ai_message_sent = False
 
 if "initialized" not in st.session_state or not st.session_state.initialized:
     msgs.add_ai_message("Hello, and welcome to this interview. I'm excited to learn more about you and your qualifications. To start, could you please introduce yourself and give us a brief overview of your background and experience?")
@@ -122,27 +119,22 @@ for msg in msgs.messages:
     st.chat_message(msg.type).write(msg.content)
 
 # Check if the number of messages is less than the max_messages and the interview hasn't ended
-if not st.session_state.get('interview_ended', False):
-    if st.session_state.num_user_inputs < max_user_inputs - 1:
-        if prompt := st.chat_input():
-            st.chat_message("human").write(prompt)
-            st.session_state['tech_messages'].append({'type': 'human', 'content': prompt})
-            st.session_state.num_user_inputs += 1
+if st.session_state.num_user_inputs < max_user_inputs:
+    if prompt := st.chat_input():
+        st.chat_message("human").write(prompt)
 
+        # Update the messages in the state
+        st.session_state['tech_messages'].append({'type': 'human', 'content': prompt})
+
+        # Increment the number of user inputs
+        st.session_state.num_user_inputs += 1
+
+        # If it's not the last user input, generate and display AI response
+        if st.session_state.num_user_inputs < max_user_inputs:
             response = llm_chain.run(prompt)
             st.chat_message("ai").write(response)
             st.session_state['tech_messages'].append({'type': 'ai', 'content': response})
-    elif st.session_state.num_user_inputs == max_user_inputs - 1:
-        if prompt := st.chat_input():
-            st.chat_message("human").write(prompt)
-            st.session_state['tech_messages'].append({'type': 'human', 'content': prompt})
-            st.session_state.num_user_inputs += 1
 
-            # Add the final AI message and mark the interview as ended
-            final_response = "Thank you for the interview. We will get back to you soon."
-            st.chat_message("ai").write(final_response)
-            st.session_state['tech_messages'].append({'type': 'ai', 'content': final_response})
-            st.session_state['interview_ended'] = True
 
 # If the max number of messages has been reached and the interview has not been marked as ended
 if st.session_state.num_user_inputs >= max_user_inputs and not st.session_state.get('interview_ended', False):
